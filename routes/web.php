@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\CourseOfferingBatchController;
 use App\Http\Controllers\Admin\ScheduledClassController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,10 +32,12 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middlew
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 
+
+
 // Route cho Dashboard (yêu cầu đăng nhập)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index']) // Sửa thành dòng này
+    ->middleware(['auth'])->name('dashboard');
+
 
 // Các route quản lý khác đã có (yêu cầu đăng nhập)
 Route::middleware('auth')->group(function () {
