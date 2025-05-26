@@ -61,11 +61,21 @@
             </a>
             <a href="{{ route('admin.course-offerings.open-batch.create') }}"
                class="admin-sidebar-link {{ request()->routeIs('admin.course-offerings.open-batch.create') ? 'admin-sidebar-link-active' : '' }}">
-                Mở Lớp hàng loạt
+                Mở Lớp học phần
             </a>
             <a href="{{ route('scheduled-classes.index') }}"
                class="admin-sidebar-link {{ request()->routeIs('scheduled-classes.*') ? 'admin-sidebar-link-active' : '' }}">
                 QL Lớp học phần
+            </a>
+            <a href="{{ route('admin.assignments.index') }}"
+                class="admin-sidebar-link {{ request()->routeIs('admin.assignments.index') ? 'admin-sidebar-link-active' : '' }}">
+                    {{-- <i class="fas fa-user-tie mr-3"></i> --}}
+                    Phân công Giảng dạy
+            </a>
+            <a href="{{ route('admin.reports.subject-class-statistics') }}"
+                class="admin-sidebar-link {{ request()->routeIs('admin.reports.subject-class-statistics') ? 'admin-sidebar-link-active' : '' }}">
+                    {{-- <i class="fas fa-chart-bar mr-3"></i> --}} {{-- Tùy chọn icon --}}
+                    Thống kê Lớp/Học phần
             </a>
         </nav>
     </div>

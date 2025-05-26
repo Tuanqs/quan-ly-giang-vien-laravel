@@ -49,4 +49,14 @@ class Lecturer extends Model
     {
         return $this->hasMany(WorkHistory::class);
     }
+
+    public function scheduledClasses(): HasMany
+    {
+    return $this->hasMany(ScheduledClass::class);
+    }
+      
+    public function subject(): BelongsTo
+    {
+    return $this->belongsTo(Subject::class);
+    }
 }

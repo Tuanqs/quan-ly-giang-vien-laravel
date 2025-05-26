@@ -23,19 +23,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="subject_code" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Mã Học phần') }} <span class="text-red-500">*</span></label>
-                        <input id="subject_code" class="block mt-1 w-full rounded-md shadow-sm"
+                        <input id="subject_code" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
                                type="text" name="subject_code" value="{{ old('subject_code') }}" placeholder="Ví dụ: IT101" required autofocus />
                     </div>
 
                     <div>
                         <label for="name" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Tên Học phần') }} <span class="text-red-500">*</span></label>
-                        <input id="name" class="block mt-1 w-full rounded-md shadow-sm"
+                        <input id="name" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
                                type="text" name="name" value="{{ old('name') }}" placeholder="Ví dụ: Nhập môn Lập trình" required />
                     </div>
 
                     <div>
                         <label for="credits" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Số tín chỉ') }} <span class="text-red-500">*</span></label>
-                        <input id="credits" class="block mt-1 w-full rounded-md shadow-sm"
+                        <input id="credits" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
                                type="number" name="credits" value="{{ old('credits') }}" min="0" max="15" placeholder="Ví dụ: 3" required />
                     </div>
 
@@ -56,7 +56,7 @@
                 <div class="mt-4">
                     <label for="description" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Mô tả') }}</label>
                     <textarea id="description" name="description" rows="4"
-                              class="block mt-1 w-full rounded-md shadow-sm">{{ old('description') }}</textarea>
+                              class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500"{{ old('address') }}</textarea>>{{ old('description') }}</textarea>
                 </div>
 
 

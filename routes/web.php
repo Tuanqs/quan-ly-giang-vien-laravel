@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\CourseOfferingBatchController;
 use App\Http\Controllers\Admin\ScheduledClassController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AssignmentController;
+use App\Http\Controllers\Admin\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,6 +60,12 @@ Route::middleware('auth')->group(function () {
 
      Route::resource('admin/subjects', SubjectController::class)
         ->parameters(['subjects' => 'subject']);
+
+    Route::get('admin/reports/subject-class-statistics', [ReportController::class, 'subjectClassStatistics'])
+         ->name('admin.reports.subject-class-statistics');
+    
+    Route::get('admin/assignments', [AssignmentController::class, 'index'])->name('admin.assignments.index');
+    Route::post('admin/assignments/assign', [AssignmentController::class, 'assign'])->name('admin.assignments.assign'); // Route để xử lý việc gán GV
 
      Route::get('admin/course-offerings/open-batch', [CourseOfferingBatchController::class, 'create'])->name('admin.course-offerings.open-batch.create');
     Route::post('admin/course-offerings/open-batch', [CourseOfferingBatchController::class, 'store'])->name('admin.course-offerings.open-batch.store');

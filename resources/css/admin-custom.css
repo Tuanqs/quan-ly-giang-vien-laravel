@@ -1,8 +1,6 @@
 /* resources/css/admin-custom.css */
 
 .admin-sidebar {
-    /* Tailwind utility classes vẫn có thể được dùng trong HTML nếu bạn muốn kết hợp */
-    /* Ví dụ: w-64, p-4, bg-white dark:bg-gray-800 đã có thể được giữ lại từ HTML */
     /* Ở đây chúng ta tập trung vào các style tùy chỉnh phức tạp hơn */
     transition: width 0.3s ease-in-out; /* Hiệu ứng nếu bạn muốn sidebar có thể thu gọn */
 }
@@ -25,7 +23,7 @@
 
 .admin-sidebar-link:hover {
     background-color: #EFF6FF; /* bg-blue-100 (light mode) */
-    color: #2563EB; /* text-blue-600 (light mode) */
+    color: #dee0e6; /* text-blue-600 (light mode) */
 }
 
 /* Dark mode hover (Tailwind sẽ tự xử lý nếu bạn dùng class dark:hover:...) */

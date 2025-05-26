@@ -8,7 +8,7 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             @if ($errors->any())
-                <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900 dark:text-red-300" role="alert">
                     <div class="font-medium">{{ __('Rất tiếc! Có lỗi xảy ra.') }}</div>
                     <ul class="mt-1 list-disc list-inside text-sm text-red-600 dark:text-red-400">
                         @foreach ($errors->all() as $error)
@@ -25,10 +25,10 @@
                 <div class="mb-4">
                     <label for="academic_year_id" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Năm học') }} <span class="text-red-500">*</span></label>
                     <select id="academic_year_id" name="academic_year_id" required
-                            class="block mt-1 w-full rounded-md shadow-sm">
-                        <option value="">-- Chọn Năm học --</option>
+                            class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
+                        <option value="" class="text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700">-- Chọn Năm học --</option>
                         @foreach ($academicYears as $year)
-                            <option value="{{ $year->id }}" {{ old('academic_year_id', $semester->academic_year_id) == $year->id ? 'selected' : '' }}>
+                            <option value="{{ $year->id }}" {{ old('academic_year_id', $semester->academic_year_id) == $year->id ? 'selected' : '' }} class="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700">
                                 {{ $year->name }}
                             </option>
                         @endforeach
@@ -37,20 +37,20 @@
 
                 <div class="mb-4">
                     <label for="name" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Tên Kì học') }} <span class="text-red-500">*</span></label>
-                    <input id="name" class="block mt-1 w-full rounded-md shadow-sm"
+                    <input id="name" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
                            type="text" name="name" value="{{ old('name', $semester->name) }}" required />
                 </div>
 
                 <div class="mb-4">
                     <label for="start_date" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Ngày bắt đầu') }} <span class="text-red-500">*</span></label>
-                    <input id="start_date" class="block mt-1 w-full rounded-md shadow-sm"
-                           type="date" name="start_date" value="{{ old('start_date', $semester->start_date->format('Y-m-d')) }}" required />
+                    <input id="start_date" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
+                           type="date" name="start_date" value="{{ old('start_date', $semester->start_date ? $semester->start_date->format('Y-m-d') : '') }}" required />
                 </div>
 
                 <div class="mb-4">
                     <label for="end_date" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Ngày kết thúc') }} <span class="text-red-500">*</span></label>
-                    <input id="end_date" class="block mt-1 w-full rounded-md shadow-sm"
-                           type="date" name="end_date" value="{{ old('end_date', $semester->end_date->format('Y-m-d')) }}" required />
+                    <input id="end_date" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
+                           type="date" name="end_date" value="{{ old('end_date', $semester->end_date ? $semester->end_date->format('Y-m-d') : '') }}" required />
                 </div>
 
                  <div class="block mt-4">
@@ -67,7 +67,7 @@
                         {{ __('Hủy') }}
                     </a>
                     <button type="submit"
-                            class="ms-4 inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest">
+                            class="ms-4 inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                         {{ __('Cập nhật Kì học') }}
                     </button>
                 </div>
