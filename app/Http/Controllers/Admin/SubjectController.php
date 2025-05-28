@@ -32,6 +32,8 @@ class SubjectController extends Controller
             'subject_code' => 'required|string|max:50|unique:subjects,subject_code',
             'name' => 'required|string|max:255',
             'credits' => 'required|integer|min:0|max:15', // Max 15 tín chỉ là ví dụ
+            'default_teaching_hours' => 'required|integer|min:0', 
+            'subject_coefficient' => 'required|numeric|min:1.0|max:2.0',
             'department_id' => 'nullable|exists:departments,id',
             'description' => 'nullable|string',
         ]);

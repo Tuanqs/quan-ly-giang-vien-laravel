@@ -21,6 +21,8 @@ class Subject extends Model
         'subject_code',
         'name',
         'credits',
+        'default_teaching_hours',
+        'subject_coefficient',
         'description',
     ];
 
@@ -31,6 +33,8 @@ class Subject extends Model
      */
     protected $casts = [
         'credits' => 'integer',
+        'default_teaching_hours' => 'integer', 
+        'subject_coefficient' => 'decimal:2',
     ];
 
     /**

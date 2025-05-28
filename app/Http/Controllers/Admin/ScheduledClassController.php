@@ -101,6 +101,8 @@ class ScheduledClassController extends Controller
     $validatedData = $request->validate([
         'semester_id' => 'required|exists:semesters,id',
         'subject_id' => 'required|exists:subjects,id',
+        'actual_teaching_hours' => 'nullable|integer|min:0',
+        'actual_students' => 'nullable|integer|min:0',
         'class_code' => [
             'required',
             'string',

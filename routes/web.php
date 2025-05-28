@@ -17,6 +17,9 @@ use App\Http\Controllers\Admin\ScheduledClassController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AssignmentController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\LecturerPayRateController;
+use App\Http\Controllers\Admin\ClassSizeCoefficientController;
+use App\Http\Controllers\Admin\PayrollController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +49,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::get('admin/payroll/generate-form', [PayrollController::class, 'showGenerateForm'])->name('admin.payroll.generate-form');
+    Route::post('admin/payroll/calculate-preview', [PayrollController::class, 'calculateAndPreview'])->name('admin.payroll.calculate-preview'); // Để xem trước
+    Route::post('admin/payroll/process-and-save', [PayrollController::class, 'processAndSavePayroll'])->name('admin.payroll.process-and-save'); // Để chốt và lưu
 
     Route::resource('admin/departments', DepartmentController::class);
     Route::resource('admin/lecturers', LecturerController::class);
@@ -60,6 +67,12 @@ Route::middleware('auth')->group(function () {
 
      Route::resource('admin/subjects', SubjectController::class)
         ->parameters(['subjects' => 'subject']);
+
+    Route::resource('admin/class-size-coefficients', ClassSizeCoefficientController::class)
+        ->parameters(['class-size-coefficients' => 'classSizeCoefficient']); // Để route model binding nhận đúng tên biến
+
+    Route::resource('admin/lecturer-pay-rates', LecturerPayRateController::class)
+        ->parameters(['lecturer-pay-rates' => 'lecturerPayRate']); // Để route model binding nhận đúng tên biến
 
     Route::get('admin/reports/subject-class-statistics', [ReportController::class, 'subjectClassStatistics'])
          ->name('admin.reports.subject-class-statistics');

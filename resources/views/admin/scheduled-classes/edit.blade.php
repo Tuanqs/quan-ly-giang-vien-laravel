@@ -8,25 +8,16 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             @if ($errors->any())
-                <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900 dark:text-red-300" role="alert">
                     <div class="font-medium">{{ __('Rất tiếc! Có lỗi xảy ra.') }}</div>
-                    <ul class="mt-1 list-disc list-inside text-sm text-red-600 dark:text-red-400">
+                    <ul class="mt-1 list-disc list-inside">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
             @endif
-            @if (session('success'))
-                <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                    {{ session('error') }}
-                </div>
-            @endif
+            {{-- ... thông báo success/error ... --}}
 
             <form method="POST" action="{{ route('scheduled-classes.update', $scheduledClass->id) }}">
                 @csrf
@@ -36,10 +27,10 @@
                     <div>
                         <label for="semester_id" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Kì học <span class="text-red-500">*</span></label>
                         <select id="semester_id" name="semester_id" required
-                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
-                            <option value="">-- Chọn Kì học --</option>
+                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
+                            <option value="" class="text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700">-- Chọn Kì học --</option>
                             @foreach ($semesters as $semester)
-                                <option value="{{ $semester->id }}" {{ old('semester_id', $scheduledClass->semester_id) == $semester->id ? 'selected' : '' }}>
+                                <option value="{{ $semester->id }}" {{ old('semester_id', $scheduledClass->semester_id) == $semester->id ? 'selected' : '' }} class="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700">
                                     {{ $semester->name }} ({{ $semester->academicYear->name }})
                                 </option>
                             @endforeach
@@ -49,10 +40,10 @@
                     <div>
                         <label for="subject_id" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Học phần <span class="text-red-500">*</span></label>
                         <select id="subject_id" name="subject_id" required
-                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
-                            <option value="">-- Chọn Học phần --</option>
+                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
+                            <option value="" class="text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700">-- Chọn Học phần --</option>
                             @foreach ($subjects as $subject)
-                                <option value="{{ $subject->id }}" {{ old('subject_id', $scheduledClass->subject_id) == $subject->id ? 'selected' : '' }}>
+                                <option value="{{ $subject->id }}" {{ old('subject_id', $scheduledClass->subject_id) == $subject->id ? 'selected' : '' }} class="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700">
                                     {{ $subject->name }} ({{ $subject->subject_code }})
                                 </option>
                             @endforeach
@@ -62,29 +53,44 @@
                     <div>
                         <label for="class_code" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Mã Lớp <span class="text-red-500">*</span></label>
                         <input id="class_code" type="text" name="class_code" value="{{ old('class_code', $scheduledClass->class_code) }}" required
-                               class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                               class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
                     </div>
 
                     <div>
                         <label for="max_students" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Sĩ số tối đa <span class="text-red-500">*</span></label>
                         <input id="max_students" type="number" name="max_students" value="{{ old('max_students', $scheduledClass->max_students) }}" min="1" max="200" required
-                               class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                               class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
                     </div>
+
+                    {{-- TRƯỜNG SỬA SỐ TIẾT THỰC TẾ --}}
+                    <div>
+                        <label for="actual_teaching_hours" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Số tiết thực tế/lớp</label>
+                        <input id="actual_teaching_hours" type="number" name="actual_teaching_hours" value="{{ old('actual_teaching_hours', $scheduledClass->actual_teaching_hours) }}" min="0"
+                               class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
+                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Số tiết chuẩn của học phần: {{ $scheduledClass->subject->default_teaching_hours ?? 'N/A' }}</p>
+                    </div>
+
+                    {{-- TRƯỜNG SỬA SĨ SỐ THỰC TẾ --}}
+                    <div>
+                        <label for="actual_students" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Sĩ số thực tế</label>
+                        <input id="actual_students" type="number" name="actual_students" value="{{ old('actual_students', $scheduledClass->actual_students) }}" min="0"
+                               class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
+                    </div>
+
 
                     <div class="md:col-span-2">
                         <label for="schedule_info" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Thông tin Lịch học (Thứ, Tiết, Phòng)</label>
                         <textarea id="schedule_info" name="schedule_info" rows="3"
-                                  class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
-                                  placeholder="Ví dụ: Thứ 2, Tiết 1-3, Phòng A101; Thứ 5, Tiết 7-9, Phòng B202">{{ old('schedule_info', $scheduledClass->schedule_info) }}</textarea>
+                                  class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">{{ old('schedule_info', $scheduledClass->schedule_info) }}</textarea>
                     </div>
 
-                    <div>
+                    <div class="md:col-span-2">
                         <label for="lecturer_id" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Giảng viên Phụ trách</label>
                         <select id="lecturer_id" name="lecturer_id"
-                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
-                            <option value="">-- Chưa phân công --</option>
+                                class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">
+                            <option value="" class="text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700">-- Chưa phân công --</option>
                             @foreach ($lecturers as $lecturer)
-                                <option value="{{ $lecturer->id }}" {{ old('lecturer_id', $scheduledClass->lecturer_id) == $lecturer->id ? 'selected' : '' }}>
+                                <option value="{{ $lecturer->id }}" {{ old('lecturer_id', $scheduledClass->lecturer_id) == $lecturer->id ? 'selected' : '' }} class="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700">
                                     {{ $lecturer->full_name }} ({{ $lecturer->lecturer_code }})
                                 </option>
                             @endforeach
@@ -93,9 +99,8 @@
                     <div class="md:col-span-2">
                         <label for="notes" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Ghi chú</label>
                         <textarea id="notes" name="notes" rows="2"
-                                  class="block mt-1 w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">{{ old('notes', $scheduledClass->notes) }}</textarea>
+                                  class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">{{ old('notes', $scheduledClass->notes) }}</textarea>
                     </div>
-
                 </div>
 
                 <div class="flex items-center justify-end mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">

@@ -41,6 +41,18 @@
                     </div>
 
                     <div>
+                        <label for="default_teaching_hours" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Số tiết chuẩn') }} <span class="text-red-500">*</span></label>
+                        <input id="default_teaching_hours" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
+                            type="number" name="default_teaching_hours" value="{{ old('default_teaching_hours', $subject->default_teaching_hours) }}" min="0" required />
+                    </div>
+
+                    <div>
+                        <label for="subject_coefficient" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Hệ số Học phần') }} <span class="text-red-500">*</span></label>
+                        <input id="subject_coefficient" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
+                            type="number" name="subject_coefficient" value="{{ old('subject_coefficient', $subject->subject_coefficient) }}" step="0.01" min="1.0" max="2.0" required />
+                    </div>
+
+                    <div>
                         <label for="department_id" class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Khoa quản lý (Tùy chọn)') }}</label>
                         <select id="department_id" name="department_id"
                                 class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-indigo-500 dark:focus:ring-indigo-500">

@@ -77,6 +77,25 @@
                     {{-- <i class="fas fa-chart-bar mr-3"></i> --}} {{-- Tùy chọn icon --}}
                     Thống kê Lớp/Học phần
             </a>
+
+            <h4 class="mt-4 mb-2 px-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Cấu hình Tính lương</h4>
+
+            <a href="{{ route('lecturer-pay-rates.index') }}"
+            class="admin-sidebar-link {{ request()->routeIs('lecturer-pay-rates.*') ? 'admin-sidebar-link-active' : '' }}">
+                {{-- <i class="fas fa-money-bill-wave mr-3"></i> --}} {{-- Tùy chọn icon --}}
+                Hệ số lương GV
+            </a>
+
+            <a href="{{ route('class-size-coefficients.index') }}"
+                class="admin-sidebar-link {{ request()->routeIs('class-size-coefficients.*') ? 'admin-sidebar-link-active' : '' }}">
+                    {{-- <i class="fas fa-users mr-3"></i> --}} {{-- Tùy chọn icon --}}
+                    Hệ số Sĩ số Lớp
+            </a>
+            <a href="{{ route('admin.payroll.generate-form') }}"
+                class="admin-sidebar-link {{ request()->routeIs('admin.payroll.*') ? 'admin-sidebar-link-active' : '' }}">
+                {{-- <i class="fas fa-calculator mr-3"></i> --}}
+                Tính tiền dạy GV
+            </a>
         </nav>
     </div>
 
