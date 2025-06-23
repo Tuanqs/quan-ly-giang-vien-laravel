@@ -96,6 +96,15 @@
                 {{-- <i class="fas fa-calculator mr-3"></i> --}}
                 Tính tiền dạy GV
             </a>
+            <a href="{{ route('admin.payroll.history') }}" class="admin-sidebar-link {{ request()->routeIs('admin.payroll.history*') ? 'admin-sidebar-link-active' : '' }}">
+                {{-- <i class="fas fa-history mr-3"></i> --}}
+                Lịch sử Bảng lương
+            </a>
+            <a href="{{ route('admin.reports.payroll') }}"
+            class="admin-sidebar-link {{ request()->routeIs('admin.reports.payroll') ? 'admin-sidebar-link-active' : '' }}">
+                {{-- <i class="fas fa-file-invoice-dollar mr-3"></i> --}}
+                Báo cáo Tiền dạy
+            </a>
         </nav>
     </div>
 

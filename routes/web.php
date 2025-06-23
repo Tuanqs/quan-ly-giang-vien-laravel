@@ -54,6 +54,13 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/payroll/calculate-preview', [PayrollController::class, 'calculateAndPreview'])->name('admin.payroll.calculate-preview'); // Để xem trước
     Route::post('admin/payroll/process-and-save', [PayrollController::class, 'processAndSavePayroll'])->name('admin.payroll.process-and-save'); // Để chốt và lưu
 
+    Route::get('admin/payroll/history', [PayrollController::class, 'history'])->name('admin.payroll.history');
+    Route::get('admin/payroll/history/{semester}', [PayrollController::class, 'showHistoryDetail'])->name('admin.payroll.history.show');
+    Route::post('admin/payroll/update-payment-status', [PayrollController::class, 'updatePaymentStatus'])->name('admin.payroll.update-payment-status'); // Để cập nhật trạng thái
+
+    Route::get('admin/reports/payroll', [ReportController::class, 'payrollReport'])->name('admin.reports.payroll');
+    Route::get('admin/reports/subject-class-statistics', [ReportController::class, 'subjectClassStatistics'])->name('admin.reports.subject-class-statistics');
+
     Route::resource('admin/departments', DepartmentController::class);
     Route::resource('admin/lecturers', LecturerController::class);
     Route::resource('admin/degree-types', DegreeTypeController::class)

@@ -211,4 +211,64 @@ class PayrollController extends Controller
         return redirect()->route('admin.payroll.generate-form')->with('error', 'Đã có lỗi xảy ra khi xử lý bảng lương: ' . $e->getMessage());
     }
 }
+
+    public function history(Request $request): View
+    {
+        $academicYears = AcademicYear::orderBy('start_date', 'desc')->get();
+        $selectedAcademicYearId = $request->input('academic_year_id');
+
+        $query = LecturerClassPayment::query()
+            ->select(
+                'semester_id',
+                DB::raw('COUNT(DISTINCT lecturer_id) as total_lecturers'),
+                DB::raw('SUM(payment_amount) as total_payment'),
+                DB::raw('MAX(calculation_date) as last_calculation_date')
+            )
+            ->with('semester.academicYear') // Eager load để lấy thông tin kì và năm học
+            ->groupBy('semester_id');
+
+        if ($selectedAcademicYearId) {
+            $query->where('academic_year_id', $selectedAcademicYearId);
+        }
+
+        $payrollSummaries = $query->orderByDesc('last_calculation_date')->paginate(10);
+
+        return view('admin.payroll.history', compact('payrollSummaries', 'academicYears', 'selectedAcademicYearId'));
+    }
+
+    /**
+     * Display the detailed payroll for a specific semester.
+     */
+    public function showHistoryDetail(Semester $semester): View
+    {
+        $payrollDetails = LecturerClassPayment::with(['lecturer', 'scheduledClass.subject'])
+            ->where('semester_id', $semester->id)
+            ->orderBy('lecturer_id') // Sắp xếp theo giảng viên
+            ->get();
+
+        $grandTotal = $payrollDetails->sum('payment_amount');
+
+        return view('admin.payroll.history-detail', compact('payrollDetails', 'semester', 'grandTotal'));
+    }
+
+    /**
+     * (Ví dụ) Update the payment status for a payment record.
+     */
+    public function updatePaymentStatus(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'payment_id' => 'required|exists:lecturer_class_payments,id',
+            'status' => 'required|string|in:paid,rejected,pending', // Các trạng thái hợp lệ
+        ]);
+
+        try {
+            $payment = LecturerClassPayment::findOrFail($request->input('payment_id'));
+            $payment->status = $request->input('status');
+            $payment->save();
+            return redirect()->back()->with('success', 'Cập nhật trạng thái thanh toán thành công.');
+        } catch (\Exception $e) {
+            Log::error("Lỗi cập nhật trạng thái thanh toán: " . $e->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi cập nhật trạng thái.');
+        }
+    }
 }
